@@ -1,0 +1,38 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  html {
+    scroll-behavior: smooth;
+  }
+  body {
+    background-color: #FFFDF9;
+    color: #27150F;
+  }
+}
+
+/* Custom scrollbar */
+::-webkit-scrollbar {
+  width: 10px;
+}
+::-webkit-scrollbar-track {
+  background: #F4ECE7;
+}
+::-webkit-scrollbar-thumb {
+  background: #B68E7B;
+  border-radius: 5px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: #8E5A44;
+}
+
+/* Soft shimmer animation */
+@keyframes pulseSubtle {
+  0%, 100% { transform: scale(1); }
+  50% { transform: scale(1.03); }
+}
+
+.animate-pulse-subtle {
+  animation: pulseSubtle 3s infinite ease-in-out;
+}
