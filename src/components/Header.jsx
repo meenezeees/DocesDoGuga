@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { Menu as MenuIcon, X, MessageCircle, Phone } from 'lucide-react';
 import { BRAND, getWhatsAppLink } from '../data/products';
 import { InstagramIcon } from './Icons';
+import { getAssetUrl } from '../utils/asset';
 
 export default function Header() {
   const [isScrolled, setIsScrolled] = useState(false);
@@ -40,7 +41,7 @@ export default function Header() {
           <a href="#inicio" className="flex items-center gap-3 group">
             <div className="relative w-11 h-11 sm:w-12 sm:h-12 rounded-full overflow-hidden border-2 border-caramel-400 shadow-sm group-hover:scale-105 transition-transform">
               <img
-                src="/assets/logo.jpg"
+                src={getAssetUrl('assets/logo.jpg')}
                 alt="Logo Doces do Guga"
                 className="w-full h-full object-cover"
                 onError={(e) => {

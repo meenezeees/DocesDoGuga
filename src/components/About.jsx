@@ -1,6 +1,7 @@
 import React from 'react';
 import { Heart, MapPin, Sparkles, Award, ShieldCheck, MessageCircle } from 'lucide-react';
 import { BRAND, getWhatsAppLink } from '../data/products';
+import { getAssetUrl } from '../utils/asset';
 
 export default function About() {
   return (
@@ -16,7 +17,7 @@ export default function About() {
               <div className="relative rounded-3xl overflow-hidden bg-white p-5 shadow-warm border border-cocoa-100">
                 <div className="aspect-square rounded-2xl overflow-hidden bg-cocoa-800 flex items-center justify-center p-6 relative">
                   <img
-                    src="/assets/logo.jpg"
+                    src={getAssetUrl('assets/logo.jpg')}
                     alt="Selo oficial da marca Doces do Guga"
                     className="w-full h-full object-contain drop-shadow-lg"
                   />

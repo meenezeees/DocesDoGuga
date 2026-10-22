@@ -13,6 +13,7 @@ import {
 } from 'lucide-react';
 import { BRAND, getWhatsAppLink } from '../data/products';
 import { InstagramIcon } from './Icons';
+import { getAssetUrl } from '../utils/asset';
 
 export default function ContactFooter() {
   const [showTooltip, setShowTooltip] = useState(true);
@@ -234,7 +235,7 @@ export default function ContactFooter() {
             
             <div className="flex items-center gap-3">
               <div className="w-8 h-8 rounded-full overflow-hidden border border-cocoa-700">
-                <img src="/assets/logo.jpg" alt="Logo Doces do Guga" className="w-full h-full object-cover" />
+                <img src={getAssetUrl('assets/logo.jpg')} alt="Logo Doces do Guga" className="w-full h-full object-cover" />
               </div>
               <div>
                 <span className="font-serif text-sm font-bold text-white block">

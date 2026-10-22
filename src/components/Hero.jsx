@@ -1,6 +1,7 @@
 import React from 'react';
 import { MessageCircle, ArrowRight, Sparkles, MapPin, Heart, ShieldCheck } from 'lucide-react';
 import { BRAND, getWhatsAppLink } from '../data/products';
+import { getAssetUrl } from '../utils/asset';
 
 export default function Hero() {
   return (
@@ -102,7 +103,7 @@ export default function Hero() {
               <div className="relative rounded-3xl overflow-hidden bg-white shadow-warm border border-cocoa-100 p-3 sm:p-4 group">
                 <div className="relative aspect-[4/5] rounded-2xl overflow-hidden bg-cocoa-100">
                   <img
-                    src="/assets/brigadeiros-box-4.jpg"
+                    src={getAssetUrl('assets/brigadeiros-box-4.jpg')}
                     alt="Caixa de Brigadeiros Gourmet da Doces do Guga com sabores Belga, Ninho com Nutella, Coco e Confeitos Coloridos"
                     className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
                     loading="eager"

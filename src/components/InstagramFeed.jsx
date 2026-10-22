@@ -2,26 +2,27 @@ import React from 'react';
 import { Heart, MessageCircle, ExternalLink, Sparkles, CheckCircle2 } from 'lucide-react';
 import { BRAND } from '../data/products';
 import { InstagramIcon } from './Icons';
+import { getAssetUrl } from '../utils/asset';
 
 export default function InstagramFeed() {
   const feedHighlights = [
     {
-      image: "/assets/brigadeiros-box-4.jpg",
+      image: getAssetUrl("assets/brigadeiros-box-4.jpg"),
       tag: "Produção do Dia",
       caption: "Caixa degustação com nossos 4 brigadeiros gourmet. Ponto cremoso e confeitos split."
     },
     {
-      image: "/assets/dupla-especial.jpg",
+      image: getAssetUrl("assets/dupla-especial.jpg"),
       tag: "Especiais da Semana",
       caption: "Dupla gourmet irresistível: Leite Ninho com cascata generosa de Nutella e Brigadeirão belga."
     },
     {
-      image: "/assets/bolo-pote.jpg",
+      image: getAssetUrl("assets/bolo-pote.jpg"),
       tag: "Sobremesa no Pote",
       caption: "Bolo de pote artesanal de chocolate: camadas fofinhas e muito brigadeiro cremoso."
     },
     {
-      image: "/assets/bio-instagram.png",
+      image: getAssetUrl("assets/bio-instagram.png"),
       tag: "Perfil Oficial",
       caption: "Doceria artesanal no bairro Cursino em São Paulo. Encomendas, festas e revenda."
     }
@@ -52,7 +53,7 @@ export default function InstagramFeed() {
           <div className="flex items-center gap-4 text-center sm:text-left">
             <div className="w-16 h-16 rounded-full overflow-hidden border-2 border-caramel-400 shrink-0 shadow-md">
               <img
-                src="/assets/logo.jpg"
+                src={getAssetUrl('assets/logo.jpg')}
                 alt="Doces do Guga Instagram"
                 className="w-full h-full object-cover"
               />
