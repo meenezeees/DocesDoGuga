@@ -39,18 +39,18 @@ export default function Header() {
           
           {/* Logo & Marca */}
           <a href="#inicio" className="flex items-center gap-3 group">
-            <div className="relative w-11 h-11 sm:w-12 sm:h-12 rounded-full overflow-hidden border-2 border-caramel-400 shadow-sm group-hover:scale-105 transition-transform">
+            <div className="relative w-11 h-11 sm:w-12 sm:h-12 rounded-full overflow-hidden border-2 border-caramel-400 shadow-sm group-hover:scale-105 transition-transform bg-cocoa-800">
+              <div className="absolute inset-0 flex items-center justify-center text-cream-100 text-xs font-bold">
+                DG
+              </div>
               <img
                 src={getAssetUrl('assets/logo.jpg')}
                 alt="Logo Doces do Guga"
-                className="w-full h-full object-cover"
+                className="relative z-10 w-full h-full object-cover"
                 onError={(e) => {
-                  e.target.style.display = 'none';
+                  e.currentTarget.style.display = 'none';
                 }}
               />
-              <div className="w-full h-full bg-cocoa-800 flex items-center justify-center text-cream-100 text-xs font-bold">
-                DG
-              </div>
             </div>
             <div>
               <span className="font-serif text-xl sm:text-2xl font-bold tracking-tight text-cocoa-900 group-hover:text-caramel-600 transition-colors">

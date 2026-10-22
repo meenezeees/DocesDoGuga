@@ -1,9 +1,51 @@
-import React, { useState } from 'react';
-import { ZoomIn, X, Camera, Sparkles, Heart } from 'lucide-react';
+import React, { useState, useEffect } from 'react';
+import { ZoomIn, X, Camera, Sparkles, ChevronLeft, ChevronRight, ChevronDown } from 'lucide-react';
 import { GALLERY_ITEMS, BRAND } from '../data/products';
 
+const GALLERY_CATEGORIES = [
+  'Todas',
+  'Festas & Centos',
+  'Morangos',
+  'Cones & Trufados',
+  'Potes & Sobremesas',
+  'Bolos & Fatias',
+  'Brigadeiros'
+];
+
 export default function Gallery() {
-  const [activeImage, setActiveImage] = useState(null);
+  const [selectedCategory, setSelectedCategory] = useState('Todas');
+  const [showAll, setShowAll] = useState(false);
+  const [activeIndex, setActiveIndex] = useState(null);
+
+  const filteredItems = selectedCategory === 'Todas'
+    ? GALLERY_ITEMS
+    : GALLERY_ITEMS.filter((item) => item.category === selectedCategory);
+
+  const visibleItems = showAll ? filteredItems : filteredItems.slice(0, 9);
+  const activeImage = activeIndex !== null ? filteredItems[activeIndex] : null;
+
+  useEffect(() => {
+    setActiveIndex(null);
+  }, [selectedCategory]);
+
+  useEffect(() => {
+    if (activeIndex === null) return;
+    const handleKeyDown = (e) => {
+      if (e.key === 'Escape') setActiveIndex(null);
+      if (e.key === 'ArrowRight') {
+        setActiveIndex((prev) => (prev + 1) % filteredItems.length);
+      }
+      if (e.key === 'ArrowLeft') {
+        setActiveIndex((prev) => (prev - 1 + filteredItems.length) % filteredItems.length);
+      }
+    };
+    window.addEventListener('keydown', handleKeyDown);
+    document.body.style.overflow = 'hidden';
+    return () => {
+      window.removeEventListener('keydown', handleKeyDown);
+      document.body.style.overflow = '';
+    };
+  }, [activeIndex, filteredItems.length]);
 
   return (
     <section id="galeria" className="py-20 lg:py-28 bg-white relative">
@@ -21,16 +63,37 @@ export default function Gallery() {
           </h2>
 
           <p className="text-sm sm:text-base text-cocoa-600 leading-relaxed">
-            Nada de imagens genéricas da internet: aqui você vê as fotos autênticas dos doces preparados com amor pela equipe <strong className="font-semibold text-cocoa-800">Doces do Guga</strong>.
+            Nada de imagens genéricas da internet: confira {GALLERY_ITEMS.length} fotografias autênticas dos doces preparados artesanalmente pela <strong className="font-semibold text-cocoa-800">Doces do Guga</strong>.
           </p>
         </div>
 
+        {/* Category Filter Pills */}
+        <div className="mt-9 flex flex-wrap items-center justify-center gap-2">
+          {GALLERY_CATEGORIES.map((cat) => (
+            <button
+              key={cat}
+              type="button"
+              onClick={() => {
+                setSelectedCategory(cat);
+                setShowAll(false);
+              }}
+              className={`px-4 py-2 rounded-full text-xs sm:text-sm font-semibold transition-all duration-200 ${
+                selectedCategory === cat
+                  ? 'bg-caramel-600 text-white shadow-md scale-105'
+                  : 'bg-cream-100 text-cocoa-700 hover:bg-cocoa-100 hover:text-cocoa-900'
+              }`}
+            >
+              {cat}
+            </button>
+          ))}
+        </div>
+
         {/* Gallery Grid */}
-        <div className="mt-14 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-          {GALLERY_ITEMS.map((item) => (
+        <div className="mt-12 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+          {visibleItems.map((item, idx) => (
             <div
               key={item.id}
-              onClick={() => setActiveImage(item)}
+              onClick={() => setActiveIndex(idx)}
               className="group relative rounded-3xl overflow-hidden bg-cocoa-100 shadow-warm hover:shadow-warm-hover cursor-pointer border border-cocoa-100 transition-all duration-300"
             >
               <div className="aspect-[4/3] w-full overflow-hidden">
@@ -62,19 +125,38 @@ export default function Gallery() {
                   </p>
                   <p className="text-[11px] text-caramel-300 font-semibold mt-2 flex items-center gap-1">
                     <Sparkles className="w-3 h-3" />
-                    <span>Clique para ampliar e ver detalhes</span>
+                    <span>Clique para ampliar</span>
                   </p>
                 </div>
               </div>
 
               {/* Bottom bar visible on mobile without hover */}
               <div className="p-4 bg-cream-50 sm:hidden border-t border-cocoa-100">
-                <h4 className="font-bold text-sm text-cocoa-900">{item.title}</h4>
-                <p className="text-xs text-cocoa-500">{item.subtitle}</p>
+                <span className="text-[10px] font-bold uppercase tracking-wider text-caramel-700">{item.category}</span>
+                <h4 className="font-bold text-sm text-cocoa-900 mt-0.5">{item.title}</h4>
+                <p className="text-xs text-cocoa-500 mt-0.5">{item.subtitle}</p>
               </div>
             </div>
           ))}
         </div>
+
+        {/* Show More / Show Less Button */}
+        {filteredItems.length > 9 && (
+          <div className="mt-10 text-center">
+            <button
+              type="button"
+              onClick={() => setShowAll(!showAll)}
+              className="inline-flex items-center gap-2 px-7 py-3.5 rounded-full bg-cream-100 hover:bg-cocoa-900 text-cocoa-900 hover:text-white font-bold text-sm border border-cocoa-200 transition-all shadow-sm"
+            >
+              <span>
+                {showAll
+                  ? 'Mostrar menos fotos'
+                  : `Ver todas as ${filteredItems.length} fotos reais`}
+              </span>
+              <ChevronDown className={`w-4 h-4 transition-transform ${showAll ? 'rotate-180' : ''}`} />
+            </button>
+          </div>
+        )}
 
         {/* Instagram Invitation Banner under gallery */}
         <div className="mt-12 text-center">
@@ -97,31 +179,61 @@ export default function Gallery() {
       {/* Lightbox Modal */}
       {activeImage && (
         <div
-          className="fixed inset-0 z-50 bg-cocoa-950/90 backdrop-blur-md flex items-center justify-center p-4 sm:p-8 animate-in fade-in duration-200"
-          onClick={() => setActiveImage(null)}
+          className="fixed inset-0 z-50 bg-cocoa-950/90 backdrop-blur-md flex items-center justify-center p-4 sm:p-8"
+          onClick={() => setActiveIndex(null)}
+          role="dialog"
+          aria-modal="true"
         >
           <button
-            onClick={() => setActiveImage(null)}
-            className="absolute top-5 right-5 p-3 rounded-full bg-white/10 hover:bg-white/25 text-white transition-colors"
+            type="button"
+            onClick={() => setActiveIndex(null)}
+            className="absolute top-5 right-5 z-20 p-3 rounded-full bg-white/15 hover:bg-white/25 text-white transition-colors"
             aria-label="Fechar visualizador"
           >
             <X className="w-6 h-6" />
           </button>
 
+          {filteredItems.length > 1 && (
+            <>
+              <button
+                type="button"
+                onClick={(e) => {
+                  e.stopPropagation();
+                  setActiveIndex((prev) => (prev - 1 + filteredItems.length) % filteredItems.length);
+                }}
+                className="absolute left-3 sm:left-6 top-1/2 -translate-y-1/2 z-20 p-3 rounded-full bg-white/15 hover:bg-white/30 text-white transition-colors"
+                aria-label="Foto anterior"
+              >
+                <ChevronLeft className="w-6 h-6" />
+              </button>
+              <button
+                type="button"
+                onClick={(e) => {
+                  e.stopPropagation();
+                  setActiveIndex((prev) => (prev + 1) % filteredItems.length);
+                }}
+                className="absolute right-3 sm:right-6 top-1/2 -translate-y-1/2 z-20 p-3 rounded-full bg-white/15 hover:bg-white/30 text-white transition-colors"
+                aria-label="Próxima foto"
+              >
+                <ChevronRight className="w-6 h-6" />
+              </button>
+            </>
+          )}
+
           <div
             className="max-w-4xl w-full bg-cocoa-900 rounded-3xl overflow-hidden border border-cocoa-700 shadow-2xl flex flex-col items-center"
             onClick={(e) => e.stopPropagation()}
           >
-            <div className="max-h-[75vh] w-full flex items-center justify-center bg-black/40 overflow-hidden">
+            <div className="max-h-[72vh] w-full flex items-center justify-center bg-black/50 overflow-hidden">
               <img
                 src={activeImage.image}
                 alt={activeImage.title}
-                className="max-h-[75vh] w-auto max-w-full object-contain"
+                className="max-h-[72vh] w-auto max-w-full object-contain"
               />
             </div>
-            <div className="p-6 text-center w-full bg-cocoa-900 border-t border-cocoa-800">
+            <div className="p-5 sm:p-6 text-center w-full bg-cocoa-900 border-t border-cocoa-800">
               <span className="text-xs font-semibold text-caramel-300 uppercase tracking-wider block mb-1">
-                {activeImage.category} • Foto Real
+                {activeImage.category} • Foto {activeIndex + 1} de {filteredItems.length}
               </span>
               <h3 className="font-serif text-xl sm:text-2xl font-bold text-white">
                 {activeImage.title}

@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { MessageCircle, Eye, Sparkles, AlertCircle } from 'lucide-react';
+import { MessageCircle, Eye, Sparkles, AlertCircle, Images } from 'lucide-react';
 import { BRAND, PRODUCTS, getWhatsAppLink } from '../data/products';
 import ProductModal from './ProductModal';
 
@@ -27,7 +27,7 @@ export default function Menu() {
           </h2>
 
           <p className="text-base sm:text-lg text-cocoa-600 leading-relaxed">
-            Conheça as especialidades reais da <strong className="font-semibold text-cocoa-800">Doces do Guga</strong>. Cada receita combina ponto perfeito, acabamento caprichado e embalagens que preservam a frescura.
+            Conheça as especialidades reais da <strong className="font-semibold text-cocoa-800">Doces do Guga</strong>. Clique em qualquer item para ver mais fotos reais e os sabores disponíveis.
           </p>
         </div>
 
@@ -36,6 +36,7 @@ export default function Menu() {
           {BRAND.categories.map((cat) => (
             <button
               key={cat.id}
+              type="button"
               onClick={() => setActiveCategory(cat.id)}
               className={`px-5 py-2.5 rounded-full text-xs sm:text-sm font-semibold transition-all duration-200 ${
                 activeCategory === cat.id
@@ -58,100 +59,116 @@ export default function Menu() {
 
         {/* Products Grid */}
         <div className="mt-12 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-          {filteredProducts.map((product) => (
-            <div
-              key={product.id}
-              className="bg-cream-50 rounded-3xl overflow-hidden border border-cocoa-100 shadow-warm hover:shadow-warm-hover transition-all duration-300 flex flex-col group"
-            >
-              {/* Product Image */}
-              <div className="relative aspect-[4/3] overflow-hidden bg-cocoa-100">
-                <img
-                  src={product.image}
-                  alt={product.name}
-                  className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
-                  loading="lazy"
-                />
-                
-                {/* Badge Tag */}
-                <div className="absolute top-3 left-3 bg-white/95 backdrop-blur-md px-3 py-1 rounded-full text-xs font-bold text-cocoa-900 shadow-sm">
-                  {product.tag}
-                </div>
-
-                <div className="absolute top-3 right-3 bg-cocoa-900/90 text-caramel-200 text-[11px] font-semibold px-2.5 py-1 rounded-full backdrop-blur-sm">
-                  {product.badge}
-                </div>
-
-                {/* Quick View Button overlay on desktop */}
-                <button
+          {filteredProducts.map((product) => {
+            const photoCount = product.images ? product.images.length : 1;
+            return (
+              <div
+                key={product.id}
+                className="bg-cream-50 rounded-3xl overflow-hidden border border-cocoa-100 shadow-warm hover:shadow-warm-hover transition-all duration-300 flex flex-col group"
+              >
+                {/* Product Image */}
+                <div
                   onClick={() => setSelectedProduct(product)}
-                  className="absolute inset-0 bg-cocoa-950/30 opacity-0 group-hover:opacity-100 flex items-center justify-center gap-2 text-white text-xs font-bold transition-opacity backdrop-blur-[2px]"
-                  aria-label={`Ver detalhes de ${product.name}`}
+                  className="relative aspect-[4/3] overflow-hidden bg-cocoa-100 cursor-pointer"
                 >
-                  <span className="p-2.5 rounded-full bg-white/90 text-cocoa-900 shadow-lg flex items-center gap-1.5 hover:bg-white">
-                    <Eye className="w-4 h-4" />
-                    <span>Ver Detalhes do Doce</span>
-                  </span>
-                </button>
-              </div>
-
-              {/* Product Body */}
-              <div className="p-6 flex-1 flex flex-col justify-between space-y-4">
-                <div className="space-y-2">
-                  <h3 className="font-serif text-xl font-bold text-cocoa-900 group-hover:text-caramel-700 transition-colors leading-snug">
-                    {product.name}
-                  </h3>
-                  <p className="text-xs sm:text-sm text-cocoa-600 line-clamp-2 leading-relaxed">
-                    {product.shortDescription}
-                  </p>
-                </div>
-
-                {/* Flavors preview pills */}
-                <div className="space-y-1.5 pt-2 border-t border-cocoa-100">
-                  <span className="text-[11px] font-bold uppercase tracking-wider text-cocoa-500 block">
-                    Sabores & Destaques:
-                  </span>
-                  <div className="flex flex-wrap gap-1.5">
-                    {product.flavors.slice(0, 2).map((flavor, index) => (
-                      <span
-                        key={index}
-                        className="text-[11px] bg-white text-cocoa-700 px-2.5 py-1 rounded-lg border border-cocoa-100 font-medium"
-                      >
-                        {flavor.split(' com ')[0]}
-                      </span>
-                    ))}
-                    {product.flavors.length > 2 && (
-                      <span className="text-[11px] bg-caramel-50 text-caramel-800 px-2 py-1 rounded-lg font-bold">
-                        +{product.flavors.length - 2} mais
-                      </span>
-                    )}
-                  </div>
-                </div>
-
-                {/* Bottom Row: Price & WhatsApp Action */}
-                <div className="pt-3 border-t border-cocoa-100 flex items-center justify-between gap-3">
-                  <div>
-                    <span className="block text-[10px] uppercase font-bold text-cocoa-400">
-                      Disponibilidade
-                    </span>
-                    <span className="text-xs sm:text-sm font-bold text-caramel-800">
-                      {product.priceText}
-                    </span>
+                  <img
+                    src={product.image}
+                    alt={product.name}
+                    className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                    loading="lazy"
+                  />
+                  
+                  {/* Badge Tag */}
+                  <div className="absolute top-3 left-3 bg-white/95 backdrop-blur-md px-3 py-1 rounded-full text-xs font-bold text-cocoa-900 shadow-sm">
+                    {product.tag}
                   </div>
 
-                  <a
-                    href={getWhatsAppLink(product.orderMessage)}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="inline-flex items-center gap-1.5 px-4 py-2.5 rounded-full bg-emerald-600 hover:bg-emerald-700 text-white font-bold text-xs shadow-sm hover:shadow-emerald-600/30 transition-all shrink-0"
-                    title={`Pedir ${product.name} no WhatsApp`}
+                  <div className="absolute top-3 right-3 bg-cocoa-900/90 text-caramel-200 text-[11px] font-semibold px-2.5 py-1 rounded-full backdrop-blur-sm flex items-center gap-1">
+                    <Images className="w-3 h-3" />
+                    <span>{photoCount > 1 ? `${photoCount} Fotos Reais` : product.badge}</span>
+                  </div>
+
+                  {/* Quick View Button overlay */}
+                  <div
+                    className="absolute inset-0 bg-cocoa-950/35 opacity-0 group-hover:opacity-100 flex items-center justify-center gap-2 text-white text-xs font-bold transition-opacity backdrop-blur-[2px]"
                   >
-                    <MessageCircle className="w-3.5 h-3.5 fill-current" />
-                    <span>Pedir Doce</span>
-                  </a>
+                    <span className="px-3.5 py-2 rounded-full bg-white/95 text-cocoa-900 shadow-lg flex items-center gap-1.5 hover:bg-white">
+                      <Eye className="w-4 h-4" />
+                      <span>Ver Fotos & Sabores</span>
+                    </span>
+                  </div>
+                </div>
+
+                {/* Product Body */}
+                <div className="p-6 flex-1 flex flex-col justify-between space-y-4">
+                  <div className="space-y-2">
+                    <h3
+                      onClick={() => setSelectedProduct(product)}
+                      className="font-serif text-xl font-bold text-cocoa-900 group-hover:text-caramel-700 transition-colors leading-snug cursor-pointer"
+                    >
+                      {product.name}
+                    </h3>
+                    <p className="text-xs sm:text-sm text-cocoa-600 line-clamp-2 leading-relaxed">
+                      {product.shortDescription}
+                    </p>
+                  </div>
+
+                  {/* Flavors preview pills */}
+                  <div className="space-y-1.5 pt-2 border-t border-cocoa-100">
+                    <span className="text-[11px] font-bold uppercase tracking-wider text-cocoa-500 block">
+                      Sabores & Destaques:
+                    </span>
+                    <div className="flex flex-wrap gap-1.5">
+                      {product.flavors.slice(0, 2).map((flavor, index) => (
+                        <span
+                          key={index}
+                          className="text-[11px] bg-white text-cocoa-700 px-2.5 py-1 rounded-lg border border-cocoa-100 font-medium line-clamp-1"
+                        >
+                          {flavor}
+                        </span>
+                      ))}
+                      {product.flavors.length > 2 && (
+                        <button
+                          type="button"
+                          onClick={() => setSelectedProduct(product)}
+                          className="text-[11px] bg-caramel-50 hover:bg-caramel-100 text-caramel-800 px-2.5 py-1 rounded-lg font-bold transition-colors"
+                        >
+                          +{product.flavors.length - 2} opções (ver todas)
+                        </button>
+                      )}
+                    </div>
+                  </div>
+
+                  {/* Bottom Row: Price & WhatsApp Action */}
+                  <div className="pt-3 border-t border-cocoa-100 flex items-center justify-between gap-2">
+                    <button
+                      type="button"
+                      onClick={() => setSelectedProduct(product)}
+                      className="text-left group/btn"
+                    >
+                      <span className="block text-[10px] uppercase font-bold text-cocoa-400">
+                        Disponibilidade
+                      </span>
+                      <span className="text-xs sm:text-sm font-bold text-caramel-800 group-hover/btn:underline">
+                        {product.priceText}
+                      </span>
+                    </button>
+
+                    <a
+                      href={getWhatsAppLink(product.orderMessage)}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="inline-flex items-center gap-1.5 px-4 py-2.5 rounded-full bg-emerald-600 hover:bg-emerald-700 text-white font-bold text-xs shadow-sm hover:shadow-emerald-600/30 transition-all shrink-0"
+                      title={`Pedir ${product.name} no WhatsApp`}
+                    >
+                      <MessageCircle className="w-3.5 h-3.5 fill-current" />
+                      <span>Pedir Doce</span>
+                    </a>
+                  </div>
                 </div>
               </div>
-            </div>
-          ))}
+            );
+          })}
         </div>
 
         {/* Global CTA bottom of Menu */}
@@ -161,7 +178,7 @@ export default function Menu() {
               Deseja um sabor ou personalização diferente?
             </h3>
             <p className="text-sm text-cocoa-200">
-              Fazemos caixas personalizadas para presentes, datas comemorativas e revenda em São Paulo.
+              Fazemos caixas personalizadas para presentes, festas, eventos e revenda em São Paulo.
             </p>
           </div>
           <a

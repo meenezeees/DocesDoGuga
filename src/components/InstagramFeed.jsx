@@ -1,5 +1,5 @@
 import React from 'react';
-import { Heart, MessageCircle, ExternalLink, Sparkles, CheckCircle2 } from 'lucide-react';
+import { Heart, MessageCircle, ExternalLink, CheckCircle2 } from 'lucide-react';
 import { BRAND } from '../data/products';
 import { InstagramIcon } from './Icons';
 import { getAssetUrl } from '../utils/asset';
@@ -7,24 +7,44 @@ import { getAssetUrl } from '../utils/asset';
 export default function InstagramFeed() {
   const feedHighlights = [
     {
-      image: getAssetUrl("assets/brigadeiros-box-4.jpg"),
-      tag: "Produção do Dia",
-      caption: "Caixa degustação com nossos 4 brigadeiros gourmet. Ponto cremoso e confeitos split."
+      image: getAssetUrl("assets/790512626_18069302783740234_6695528223466475880_n.jpg"),
+      tag: "Morango Cravejado",
+      caption: "Morangos selecionados envolvidos em brigadeiro cremoso e cristais crocantes. Uma explosão a cada mordida!"
     },
     {
-      image: getAssetUrl("assets/dupla-especial.jpg"),
-      tag: "Especiais da Semana",
-      caption: "Dupla gourmet irresistível: Leite Ninho com cascata generosa de Nutella e Brigadeirão belga."
+      image: getAssetUrl("assets/517974445_18016526873740234_1194488664687342246_n.jpg"),
+      tag: "Cones Trufados",
+      caption: "Casquinha crocante banhada em chocolate e recheada até o topo: Paçoca, Brigadeiro, Ninho, Ao Leite e Castanha."
     },
     {
-      image: getAssetUrl("assets/bolo-pote.jpg"),
-      tag: "Sobremesa no Pote",
-      caption: "Bolo de pote artesanal de chocolate: camadas fofinhas e muito brigadeiro cremoso."
+      image: getAssetUrl("assets/567330691_18029035319740234_2912624652265857453_n.webp"),
+      tag: "Centos para Festas",
+      caption: "Caixas com docinhos gourmet padronizados: Bicho de Pé carimbado, Amendoim com Nutella, Belga e Beijinho."
     },
     {
-      image: getAssetUrl("assets/bio-instagram.png"),
-      tag: "Perfil Oficial",
-      caption: "Doceria artesanal no bairro Cursino em São Paulo. Encomendas, festas e revenda."
+      image: getAssetUrl("assets/496479939_18009542243740234_1999382976708726864_n.jpg"),
+      tag: "Bombom Aberto",
+      caption: "Surpresa de Uva no Pote: uvas verdes crocantes, creme aveludado de Leite Ninho e ganache de chocolate."
+    },
+    {
+      image: getAssetUrl("assets/756858129_18063250409740234_3171982933394442438_n.webp"),
+      tag: "Bolos Festivos",
+      caption: "Bolo no acetato super recheado, finalizado com brigadeiros gourmet no topo e laço especial para comemorar."
+    },
+    {
+      image: getAssetUrl("assets/825269877_18073031888740234_6133581483071309080_n.jpg"),
+      tag: "Mini Brownies",
+      caption: "Bandeja de mini brownies artesanais decorados com rosetas de brigadeiro branco e chocolate ao leite."
+    },
+    {
+      image: getAssetUrl("assets/503444415_18017858681740234_6786135216542445181_n.jpg"),
+      tag: "Morango do Amor",
+      caption: "Por dentro do nosso Morango do Amor: fruta fresca, camada generosa de brigadeiro e casquinha crocante!"
+    },
+    {
+      image: getAssetUrl("assets/545198545_18023698964740234_772588665020894520_n.jpg"),
+      tag: "Bolo no Pote",
+      caption: "Bolo de cenoura bem fofinho intercalado com camadas fartas de brigadeiro gourmet artesanal."
     }
   ];
 
@@ -121,7 +141,7 @@ export default function InstagramFeed() {
                 </p>
                 <div className="mt-3 pt-2 border-t border-cocoa-100 flex items-center justify-between text-[11px] text-cocoa-500 font-medium">
                   <span>@{BRAND.instagramUser}</span>
-                  <span className="text-caramel-600 font-bold group-hover:underline">Abrir post</span>
+                  <span className="text-caramel-600 font-bold group-hover:underline">Abrir no Instagram</span>
                 </div>
               </div>
             </a>

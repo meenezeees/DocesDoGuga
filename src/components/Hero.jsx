@@ -1,9 +1,39 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { MessageCircle, ArrowRight, Sparkles, MapPin, Heart, ShieldCheck } from 'lucide-react';
 import { BRAND, getWhatsAppLink } from '../data/products';
 import { getAssetUrl } from '../utils/asset';
 
+const HERO_SLIDES = [
+  {
+    image: getAssetUrl('assets/567330691_18029035319740234_2912624652265857453_n.webp'),
+    label: 'Brigadeiros & Centos Gourmet',
+    title: 'Belga • Bicho de Pé • Ninho c/ Nutella • Beijinho',
+    subtitle: 'Boleados à mão para festas, presentes e pronta-entrega'
+  },
+  {
+    image: getAssetUrl('assets/790512626_18069302783740234_6695528223466475880_n.jpg'),
+    label: 'Sucesso Absoluto',
+    title: 'Morango do Amor & Morango Cravejado',
+    subtitle: 'Fruta fresca envolvida em brigadeiro cremoso e casquinha crocante'
+  },
+  {
+    image: getAssetUrl('assets/517974445_18016526873740234_1194488664687342246_n.jpg'),
+    label: 'Recheio do Início ao Fim',
+    title: 'Cones Trufados em Diversos Sabores',
+    subtitle: 'Paçoca, Brigadeiro, Ninho, Maracujá e Chocolate ao Leite'
+  },
+  {
+    image: getAssetUrl('assets/496479939_18009542243740234_1999382976708726864_n.jpg'),
+    label: 'Para Comer de Colherada',
+    title: 'Bolos de Pote & Sobremesas Artesanais',
+    subtitle: 'Surpresa de Uva, Ninho com Morango, Cenoura e Chocolate'
+  }
+];
+
 export default function Hero() {
+  const [activeSlide, setActiveSlide] = useState(0);
+  const current = HERO_SLIDES[activeSlide];
+
   return (
     <section id="inicio" className="relative pt-28 pb-16 lg:pt-36 lg:pb-24 overflow-hidden bg-gradient-to-b from-cream-100 via-cream-50 to-white">
       {/* Decorative background blobs */}
@@ -17,7 +47,7 @@ export default function Hero() {
             
             {/* Tag Badge */}
             <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-caramel-100/80 border border-caramel-300 text-caramel-900 text-xs sm:text-sm font-semibold shadow-sm">
-              <Sparkles className="w-4 h-4 text-caramel-600 animate-spin-slow" />
+              <Sparkles className="w-4 h-4 text-caramel-600" />
               <span>Confeitaria Artesanal em São Paulo • Bairro Cursino</span>
             </div>
 
@@ -33,13 +63,13 @@ export default function Hero() {
 
             {/* Subtítulo */}
             <p className="text-base sm:text-lg text-cocoa-700 max-w-2xl mx-auto lg:mx-0 leading-relaxed font-normal">
-              Na <strong className="font-semibold text-cocoa-900">Doces do Guga</strong>, cada brigadeiro gourmet, sobremesa especial e bolo de pote é preparado artesanalmente com ingredientes de qualidade e cuidado em cada detalhe. O sabor caseiro autêntico que transforma qualquer dia em uma comemoração.
+              Na <strong className="font-semibold text-cocoa-900">Doces do Guga</strong>, cada brigadeiro gourmet, morango do amor, cone trufado, bolo festivo e sobremesa no pote é preparado artesanalmente com ingredientes selecionados. O sabor caseiro autêntico que transforma qualquer dia em comemoração.
             </p>
 
             {/* CTAs */}
             <div className="pt-2 flex flex-col sm:flex-row items-center justify-center lg:justify-start gap-4">
               <a
-                href={getWhatsAppLink("Olá! Gostaria de fazer meu pedido na Doces do Guga e conhecer as opções de pronta-entrega para hoje.")}
+                href={getWhatsAppLink("Olá! Gostaria de fazer meu pedido na Doces do Guga e conhecer as opções disponíveis hoje.")}
                 target="_blank"
                 rel="noopener noreferrer"
                 className="w-full sm:w-auto inline-flex items-center justify-center gap-3 px-8 py-4 rounded-full bg-emerald-600 hover:bg-emerald-700 text-white font-bold text-base shadow-lg shadow-emerald-600/30 hover:-translate-y-0.5 active:translate-y-0 transition-all group"
@@ -92,7 +122,7 @@ export default function Hero() {
 
           </div>
 
-          {/* Right Column: Visual Showcase with Real Photo */}
+          {/* Right Column: Interactive Visual Showcase with Real Photos */}
           <div className="lg:col-span-5 relative">
             <div className="relative mx-auto max-w-md lg:max-w-none">
               
@@ -100,47 +130,59 @@ export default function Hero() {
               <div className="absolute -inset-4 rounded-3xl bg-gradient-to-tr from-caramel-400/20 via-pink-300/20 to-cocoa-600/10 transform -rotate-2 blur-sm" />
 
               {/* Main Photo Card */}
-              <div className="relative rounded-3xl overflow-hidden bg-white shadow-warm border border-cocoa-100 p-3 sm:p-4 group">
-                <div className="relative aspect-[4/5] rounded-2xl overflow-hidden bg-cocoa-100">
+              <div className="relative rounded-3xl overflow-hidden bg-white shadow-warm border border-cocoa-100 p-3 sm:p-4">
+                <div className="relative aspect-[4/4.5] rounded-2xl overflow-hidden bg-cocoa-100">
                   <img
-                    src={getAssetUrl('assets/brigadeiros-box-4.jpg')}
-                    alt="Caixa de Brigadeiros Gourmet da Doces do Guga com sabores Belga, Ninho com Nutella, Coco e Confeitos Coloridos"
-                    className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                    src={current.image}
+                    alt={current.title}
+                    className="w-full h-full object-cover transition-all duration-500"
                     loading="eager"
                   />
-                  <div className="absolute inset-0 bg-gradient-to-t from-cocoa-950/70 via-transparent to-transparent opacity-90" />
+                  <div className="absolute inset-0 bg-gradient-to-t from-cocoa-950/80 via-cocoa-950/20 to-transparent" />
                   
                   {/* Badge over photo */}
                   <div className="absolute top-4 left-4 bg-white/95 backdrop-blur-md px-3.5 py-1.5 rounded-full shadow-md flex items-center gap-2">
                     <span className="w-2 h-2 rounded-full bg-emerald-500 animate-ping" />
                     <span className="text-xs font-bold text-cocoa-900 uppercase tracking-wide">
-                      Produção Fresca
+                      Foto Real • Doces do Guga
                     </span>
                   </div>
 
                   {/* Caption on image */}
                   <div className="absolute bottom-4 left-4 right-4 text-white">
                     <span className="text-xs font-semibold text-caramel-200 uppercase tracking-wider">
-                      Caixa Degustação Gourmet
+                      {current.label}
                     </span>
-                    <h3 className="font-serif text-lg sm:text-xl font-bold leading-tight">
-                      Belga Tradicional • Ninho c/ Nutella • Coco • Confetes
+                    <h3 className="font-serif text-lg sm:text-xl font-bold leading-tight mt-0.5">
+                      {current.title}
                     </h3>
                     <p className="text-xs text-cream-200 mt-1">
-                      Fotografia real do produto Doces do Guga
+                      {current.subtitle}
                     </p>
                   </div>
                 </div>
 
-                {/* Floating badge bottom-right */}
-                <div className="absolute -bottom-5 -right-3 bg-cocoa-900 text-cream-100 px-4 py-3 rounded-2xl shadow-xl border-2 border-caramel-400 flex items-center gap-3">
-                  <div className="w-10 h-10 rounded-xl bg-caramel-600 text-white flex items-center justify-center font-bold text-lg">
-                    ✨
-                  </div>
-                  <div>
-                    <p className="text-[11px] text-caramel-200 font-medium">Textura cremosa & ponto ideal</p>
-                    <p className="text-sm font-bold text-white leading-tight">Ingredientes Nobres</p>
-                  </div>
+                {/* Thumbnail Switcher */}
+                <div className="mt-3 grid grid-cols-4 gap-2">
+                  {HERO_SLIDES.map((slide, idx) => (
+                    <button
+                      key={idx}
+                      type="button"
+                      onClick={() => setActiveSlide(idx)}
+                      className={`relative aspect-square rounded-xl overflow-hidden border-2 transition-all ${
+                        activeSlide === idx
+                          ? 'border-caramel-500 ring-2 ring-caramel-300/60 scale-[1.02]'
+                          : 'border-transparent opacity-70 hover:opacity-100'
+                      }`}
+                      aria-label={`Ver foto: ${slide.title}`}
+                    >
+                      <img
+                        src={slide.image}
+                        alt={slide.label}
+                        className="w-full h-full object-cover"
+                      />
+                    </button>
+                  ))}
                 </div>
               </div>
 

@@ -25,6 +25,9 @@ function githubPagesHelperPlugin() {
 
       // Copy dist to docs for repos using "main" branch with "/docs" folder
       if (fs.existsSync(distDir)) {
+        if (fs.existsSync(docsDir)) {
+          fs.rmSync(docsDir, { recursive: true, force: true })
+        }
         fs.cpSync(distDir, docsDir, { recursive: true })
       }
     }

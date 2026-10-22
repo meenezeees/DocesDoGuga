@@ -41,9 +41,13 @@ export default function ContactFooter() {
             {/* Left Card: Direct Contact Info */}
             <div className="lg:col-span-7 bg-white rounded-3xl p-8 sm:p-10 border border-cocoa-100 shadow-warm flex flex-col justify-between space-y-8">
               <div className="space-y-6">
-                <div className="flex items-center gap-3">
-                  <div className="w-12 h-12 rounded-2xl bg-cocoa-900 text-cream-100 flex items-center justify-center font-bold text-xl">
-                    DG
+                <div className="flex items-center gap-3.5">
+                  <div className="w-14 h-14 rounded-2xl overflow-hidden border-2 border-caramel-400 bg-cocoa-900 shrink-0 shadow-sm">
+                    <img
+                      src={getAssetUrl('assets/logo.jpg')}
+                      alt="Logo Doces do Guga"
+                      className="w-full h-full object-cover"
+                    />
                   </div>
                   <div>
                     <h3 className="font-serif text-2xl font-bold text-cocoa-900">

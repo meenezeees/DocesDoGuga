@@ -13,14 +13,34 @@ export default function About() {
           <div className="lg:col-span-5 order-2 lg:order-1">
             <div className="relative mx-auto max-w-md lg:max-w-none">
               
-              {/* Back Card: Logo / Adesivo Oficial */}
-              <div className="relative rounded-3xl overflow-hidden bg-white p-5 shadow-warm border border-cocoa-100">
-                <div className="aspect-square rounded-2xl overflow-hidden bg-cocoa-800 flex items-center justify-center p-6 relative">
+              {/* Main Card: Foto Real do Guga com sua bancada de doces */}
+              <div className="relative rounded-3xl overflow-hidden bg-white p-4 sm:p-5 shadow-warm border border-cocoa-100">
+                <div className="aspect-[4/4.6] rounded-2xl overflow-hidden bg-cocoa-900 relative">
                   <img
-                    src={getAssetUrl('assets/logo.jpg')}
-                    alt="Selo oficial da marca Doces do Guga"
-                    className="w-full h-full object-contain drop-shadow-lg"
+                    src={BRAND.founderImage}
+                    alt="Guga ao lado de sua bancada oficial de doces artesanais"
+                    className="w-full h-full object-cover object-top"
+                    loading="lazy"
                   />
+                  <div className="absolute inset-0 bg-gradient-to-t from-cocoa-950/75 via-transparent to-transparent" />
+
+                  {/* Official Seal Badge in corner */}
+                  <div className="absolute top-3 right-3 w-16 h-16 sm:w-20 sm:h-20 rounded-full overflow-hidden border-2 border-caramel-400 shadow-lg bg-cocoa-900">
+                    <img
+                      src={getAssetUrl('assets/logo.jpg')}
+                      alt="Selo oficial Doces do Guga"
+                      className="w-full h-full object-cover"
+                    />
+                  </div>
+
+                  <div className="absolute bottom-4 left-4 right-4 text-white">
+                    <span className="text-[11px] font-bold uppercase tracking-wider text-caramel-300 block">
+                      Quem Faz Acontecer
+                    </span>
+                    <p className="font-serif text-lg font-bold text-cream-50 leading-snug">
+                      Dedicação diária em cada receita da Doces do Guga
+                    </p>
+                  </div>
                 </div>
 
                 {/* Info Card Inside */}
@@ -33,7 +53,7 @@ export default function About() {
                     Rua Eugênio Falk, 530 • Bairro Cursino
                   </p>
                   <p className="text-[11px] text-cocoa-500 mt-1">
-                    Atendimento, encomendas e revenda
+                    Atendimento próximo, encomendas para festas e revenda
                   </p>
                 </div>
               </div>
@@ -68,28 +88,28 @@ export default function About() {
                 A <strong className="font-semibold text-cocoa-900">Doces do Guga</strong> nasceu em São Paulo com um propósito claro: resgatar a essência do doce caseiro, onde cada receita é preparada sem atalhos, com atenção meticulosa ao ponto e utilizando ingredientes que trazem aconchego.
               </p>
               <p>
-                Localizada no bairro <strong className="font-semibold text-cocoa-900">Cursino</strong> (região da Saúde / Jardim da Saúde), nossa produção atende clientes que buscam tanto aquele doce especial para adoçar a rotina da tarde quanto organizadores de festas e comércios parceiros que precisam de brigadeiros gourmet e bolos de pote padronizados e deliciosos.
+                Localizada no bairro <strong className="font-semibold text-cocoa-900">Cursino</strong> (região da Saúde / Jardim da Saúde), nossa produção atende clientes que buscam tanto aquele doce especial para adoçar a rotina da tarde — como nossos famosos <strong>Morangos do Amor</strong>, <strong>Cones Trufados</strong> e <strong>Bolos de Pote</strong> — quanto organizadores de festas e comércios parceiros que precisam de centos de docinhos e bolos confeitados impecáveis.
               </p>
               <p>
-                Acreditamos na transparência e no atendimento humano: você conversa diretamente com a nossa equipe pelo WhatsApp, alinha os sabores que mais ama e recebe produtos frescos, preparados no capricho.
+                Acreditamos na transparência e no atendimento humano: você conversa diretamente conosco pelo WhatsApp, escolhe os sabores que mais ama e recebe produtos frescos, preparados no capricho.
               </p>
             </div>
 
             {/* Value Pillars */}
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 pt-2">
-              <div className="p-4 rounded-2xl bg-white border border-cocoa-100 flex items-start gap-3 shadow-xs">
+              <div className="p-4 rounded-2xl bg-white border border-cocoa-100 flex items-start gap-3 shadow-sm">
                 <Award className="w-5 h-5 text-caramel-600 shrink-0 mt-0.5" />
                 <div>
                   <h4 className="text-sm font-bold text-cocoa-900">Ingredientes Selecionados</h4>
-                  <p className="text-xs text-cocoa-500 mt-0.5">Leite condensado no ponto correto e chocolates nobres.</p>
+                  <p className="text-xs text-cocoa-500 mt-0.5">Brigadeiros no ponto perfeito, frutas frescas e chocolates nobres.</p>
                 </div>
               </div>
 
-              <div className="p-4 rounded-2xl bg-white border border-cocoa-100 flex items-start gap-3 shadow-xs">
+              <div className="p-4 rounded-2xl bg-white border border-cocoa-100 flex items-start gap-3 shadow-sm">
                 <ShieldCheck className="w-5 h-5 text-emerald-600 shrink-0 mt-0.5" />
                 <div>
                   <h4 className="text-sm font-bold text-cocoa-900">Compromisso com o Cliente</h4>
-                  <p className="text-xs text-cocoa-500 mt-0.5">Pontualidade nas encomendas e higiene rigorosa.</p>
+                  <p className="text-xs text-cocoa-500 mt-0.5">Pontualidade nas encomendas e cuidado em cada embalagem.</p>
                 </div>
               </div>
             </div>
